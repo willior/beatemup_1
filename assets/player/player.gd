@@ -21,6 +21,8 @@ onready var sprite = $Sprite
 onready var animationPlayer = $AnimationPlayer
 onready var animationTree = $AnimationTree
 onready var animationState = animationTree.get("parameters/playback")
+onready var hitbox = $HitboxPivot/Hitbox
+onready var hurtbox = $Hurtbox
 
 func _ready():
 	animationTree.active = true
@@ -35,7 +37,6 @@ func _input(event):
 		MOVE:
 			if event.is_action_pressed(player_inputs.attack) and !event.is_echo():
 				animationState.travel("Punch1")
-				print('punch')
 				state = ATTACK
 		ATTACK:
 			pass
@@ -60,14 +61,18 @@ func move():
 func h_flip_handler(direction):
 	if direction < 0:
 		sprite.flip_h = true
-		$Position2D.rotation_degrees = 180
+		$HitboxPivot.rotation_degrees = 180
 	elif direction > 0:
 		sprite.flip_h = false
-		$Position2D.rotation_degrees = 0
+		$HitboxPivot.rotation_degrees = 0
 
-func attack_state(_delta):
-	pass
+func attack_state(delta):
+	velocity = velocity.move_toward(Vector2.ZERO, (stats.friction) * delta)
+	move()
+
+func attack_1():
+	hitbox.attack_1()
 
 func attack_animation_finished():
-	print('attack_animation_finished')
+	# print('attack_animation_finished')
 	state = MOVE
