@@ -17,6 +17,8 @@ config/icon="res://icon.png"
 [autoload]
 
 Global="*res://system/global.gd"
+GameManager="*res://system/game_manager.gd"
+P2Stats="*res://assets/player/p2stats.gd"
 P1Stats="*res://assets/player/p1stats.gd"
 
 [debug]

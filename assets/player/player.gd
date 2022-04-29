@@ -25,6 +25,8 @@ onready var hitbox = $HitboxPivot/Hitbox
 onready var hurtbox = $Hurtbox
 
 func _ready():
+	if name == "Player":
+		name = "Player1"
 	animationTree.active = true
 
 func _physics_process(delta):
